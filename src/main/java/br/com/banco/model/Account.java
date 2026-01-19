@@ -10,16 +10,18 @@ public class Account {
     private String nome;
     private float valor_compra;
     private String forma_pag;
+    private String status;
 
     private ArrayList<Produtos> produtos;
 
 
-    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag) {
+    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag, String status) {
         this.id_cliente = id_cliente;
         this.cpf = cpf;
         this.nome = nome;
         this.valor_compra = valor_compra;
         this.forma_pag = forma_pag;
+        this.status = status;
     }
 
 
@@ -62,5 +64,13 @@ public class Account {
 
     public void setForma_pag(String forma_pag) {
         this.forma_pag = forma_pag;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
