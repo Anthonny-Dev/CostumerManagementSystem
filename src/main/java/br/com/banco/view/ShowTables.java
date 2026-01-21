@@ -28,9 +28,10 @@ public class ShowTables {
                         float valor_compra = rs.getFloat("valor_compra");
                         String forma_pag = rs.getString("forma_pag");
                         String status = rs.getString("status");
+                        String telefone_cliente = rs.getString("telefone_cliente");
 
-                        System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\n________________________________________________\n",
-                                id_cliente, cpf, nome, valor_compra, forma_pag, status);
+                        System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\n________________________________________________\n",
+                                id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente);
                     }
 
                 } catch (SQLException e) {
@@ -57,9 +58,11 @@ public class ShowTables {
                     float valor_compra = rs.getFloat("valor_compra");
                     String forma_pag = rs.getString("forma_pag");
                     String status = rs.getString("status");
+                    String telefone_cliente = rs.getString("telefone_cliente");
 
-                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\n________________________________________________\n",
-                            id_cliente, cpf, nome, valor_compra, forma_pag, status);
+
+                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\n________________________________________________\n",
+                            id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente);
                 }
 
             } catch (SQLException e) {
@@ -93,13 +96,34 @@ public class ShowTables {
                     float valor_compra = rs.getFloat("valor_compra");
                     String forma_pag = rs.getString("forma_pag");
                     String status = rs.getString("status");
+                    String telefone_cliente = rs.getString("telefone_cliente");
 
-                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\n________________________________________________\n",
-                            id_cliente, cpf, nome, valor_compra, forma_pag, status);
+
+                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\n________________________________________________\n",
+                            id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente);
                 }
 
             } catch (SQLException e) {
                 System.err.println("Erro ao estabelecer conexão:" + e.getMessage());
+            }
+        }
+
+        public void deletarClientesTeste(){
+            Connection connection = null;
+            Statement statement = null;
+            ResultSet resultSet = null;
+
+
+            try (Connection conn = BancoConnection.getConnection();
+                 Statement stmt = conn.createStatement()) {
+ //                  ⬆ Statement: estado para a variável stmt com o metodo para criar uma string sql (por isso não é passada como parametro)
+
+                stmt.executeUpdate("TRUNCATE TABLE cliente");
+//                        ⬆ não precisamos passar parametros nesse metodo pois é só a execucao de uma string sql
+                System.out.println("LISTA DE CLIENTES ZERADA COM SUCESSO.");
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
 }

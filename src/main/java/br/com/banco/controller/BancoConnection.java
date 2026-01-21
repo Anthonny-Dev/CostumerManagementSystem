@@ -5,11 +5,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 public class BancoConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/database_client";
-    private static final String USER = "root";
-    private static final String PASSWORD = "@Computador1908";
+    private static final Dotenv dotenv = Dotenv.load();
+
+    private static final String HOST = dotenv.get("DB_HOST");
+    private static final String PORT = dotenv.get("DB_PORT");
+    private static final String DATABASE = dotenv.get("DB_NAME");
+    private static final String USER = dotenv.get("DB_USER");
+    private static final String PASSWORD = dotenv.get("DB_PASSWORD");
+
+    private static final String URL =
+            "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
     public static void main(String[] args) {
         Connection connection = null;

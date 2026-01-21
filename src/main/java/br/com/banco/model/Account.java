@@ -11,17 +11,19 @@ public class Account {
     private float valor_compra;
     private String forma_pag;
     private String status;
+    private String telefone_cliente;
 
     private ArrayList<Produtos> produtos;
 
 
-    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag, String status) {
+    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag, String status, String telefone_cliente) {
         this.id_cliente = id_cliente;
         this.cpf = cpf;
         this.nome = nome;
         this.valor_compra = valor_compra;
         this.forma_pag = forma_pag;
         this.status = status;
+        this.telefone_cliente = telefone_cliente;
     }
 
 
@@ -72,5 +74,13 @@ public class Account {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTelefone_cliente() {
+        return telefone_cliente;
+    }
+
+    public void setTelefone_cliente(String telefone_cliente) {
+        this.telefone_cliente = telefone_cliente;
     }
 }
