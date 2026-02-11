@@ -3,7 +3,14 @@ package br.com.banco.view;
 import br.com.banco.controller.createAccount;
 import br.com.banco.model.Account;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class MenuApplication {
@@ -82,7 +89,6 @@ public class MenuApplication {
                     System.out.print("Status do Cliente: ");
                     String status = scanner.nextLine();
 
-
                     if(status.equals(null)){
                         System.out.println("Valor Inválido!\n");
 
@@ -103,8 +109,9 @@ public class MenuApplication {
                     }
 
 //                  -----------------------------------------------------------------
-
-                    Account novaconta = new Account(0, cpf, name, valor_compra, forma_pag, status, telefone_cliente);
+                    // aqui setamos a data antes de instanciar o novo objeto, pois a data só pode ser instanciada depois da criacao do objeto
+                    LocalDateTime dataCompra = LocalDateTime.now();
+                    Account novaconta = new Account(0, cpf, name, valor_compra, forma_pag, status, telefone_cliente, dataCompra);
                     createAccount dao = new createAccount();
                     dao.createaccount(novaconta);
                     break;

@@ -1,5 +1,6 @@
 package br.com.banco.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -12,11 +13,13 @@ public class Account {
     private String forma_pag;
     private String status;
     private String telefone_cliente;
+    private LocalDateTime dataCompra;
+
 
     private ArrayList<Produtos> produtos;
 
 
-    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag, String status, String telefone_cliente) {
+    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag, String status, String telefone_cliente, LocalDateTime dataCompra) {
         this.id_cliente = id_cliente;
         this.cpf = cpf;
         this.nome = nome;
@@ -24,6 +27,8 @@ public class Account {
         this.forma_pag = forma_pag;
         this.status = status;
         this.telefone_cliente = telefone_cliente;
+        this.dataCompra = dataCompra;
+
     }
 
 
@@ -82,5 +87,14 @@ public class Account {
 
     public void setTelefone_cliente(String telefone_cliente) {
         this.telefone_cliente = telefone_cliente;
+    }
+
+
+    public LocalDateTime getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(LocalDateTime dataCompra) {
+        this.dataCompra = dataCompra;
     }
 }

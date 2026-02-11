@@ -11,7 +11,7 @@ public class createAccount {
 
     /*METODO DA LÓGICA DE CRIAÇÃO DE NOVAS CONTAS*/
     public void createaccount(Account account) throws SQLException {
-        String sql = "INSERT INTO cliente(cpf, nome, valor_compra, forma_pag, status, telefone_cliente) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente(cpf, nome, valor_compra, forma_pag, status, telefone_cliente, dataCompra) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         // CRIAMOS UMA CONEXÃO COM O BANCO DE DADOS
         try(Connection conn = BancoConnection.getConnection();
@@ -25,6 +25,8 @@ public class createAccount {
             stmt.setString(4, account.getForma_pag());
             stmt.setString(5, account.getStatus());
             stmt.setString(6, account.getTelefone_cliente());
+            stmt.setTimestamp(7, Timestamp.valueOf(account.getDataCompra()));
+
 
             int rowsAtualizados = stmt.executeUpdate();
             if (rowsAtualizados > 0){

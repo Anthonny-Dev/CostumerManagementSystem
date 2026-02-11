@@ -1,6 +1,5 @@
 package br.com.banco.view;
 
-
 import br.com.banco.controller.BancoConnection;
 import br.com.banco.model.Account;
 
@@ -29,9 +28,10 @@ public class ShowTables {
                         String forma_pag = rs.getString("forma_pag");
                         String status = rs.getString("status");
                         String telefone_cliente = rs.getString("telefone_cliente");
+                        Date dataCompra = rs.getDate("dataCompra");
 
-                        System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\n________________________________________________\n",
-                                id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente);
+                        System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\nData da Compra: %s\n________________________________________________\n",
+                                id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente, dataCompra);
                     }
 
                 } catch (SQLException e) {
@@ -59,10 +59,11 @@ public class ShowTables {
                     String forma_pag = rs.getString("forma_pag");
                     String status = rs.getString("status");
                     String telefone_cliente = rs.getString("telefone_cliente");
+                    Date dataCompra = rs.getDate("dataCompra");
 
 
-                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\n________________________________________________\n",
-                            id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente);
+                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\nData da Compra: %s\n________________________________________________\n",
+                            id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente, dataCompra);
                 }
 
             } catch (SQLException e) {
@@ -97,10 +98,11 @@ public class ShowTables {
                     String forma_pag = rs.getString("forma_pag");
                     String status = rs.getString("status");
                     String telefone_cliente = rs.getString("telefone_cliente");
+                    Date dataCompra = rs.getDate("dataCompra");
 
 
-                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\n________________________________________________\n",
-                            id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente);
+                    System.out.printf("ID: %d |\nCPF: %s |\nNome: %s |\nValor da Compra: %.2f |\nForma de Pagamento: %s |\nStatus do Cliente: %s\nTelefone do Cliente: %s\nData da Compra: %s\n________________________________________________\n",
+                            id_cliente, cpf, nome, valor_compra, forma_pag, status, telefone_cliente, dataCompra);
                 }
 
             } catch (SQLException e) {
