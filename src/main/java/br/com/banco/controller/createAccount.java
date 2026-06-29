@@ -1,45 +1,63 @@
 package br.com.banco.controller;
 
+import br.com.banco.controller.BancoConnection;
 import br.com.banco.model.Account;
+import br.com.banco.model.Produtos;
 
 import java.sql.*;
 
-/* CRIAMOS UMA CLASSE PARA CRIAR NOVAS CONTAS DENTRO DO BANCO SQL, EVITANDO CRIAR NA CLASSE ACCOUNT.JAVA
- PARA REDUZIR A QUANTIDDAE DE DEPENDENCIAS DA CLASSE E AUMENTAR A MANUTENABILIDDAE DO CÓDIGO*/
-
-public class createAccount {
-
-    /*METODO DA LÓGICA DE CRIAÇÃO DE NOVAS CONTAS*/
+public class createAccount{
     public void createaccount(Account account) throws SQLException {
-        String sql = "INSERT INTO cliente(cpf, nome, valor_compra, forma_pag, status, telefone_cliente, dataCompra) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        // CRIAMOS UMA CONEXÃO COM O BANCO DE DADOS
-        try(Connection conn = BancoConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
-            // Usamos o PreparedStatement para executar comandos SQL de forma segura no Java e passar para o nosso BD MySQL
+        String sqlCliente = "INSERT INTO cliente(cpf, nome, valor_compra, forma_pag, status, telefone_cliente) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlClienteProduto = "INSERT INTO cliente_produto (id_client, id_produto, quantidade) VALUES (?, ?, ?)";
 
-            // PASSAMOS PARA O METODO STATEMENT OS ATRIBUTOS QUE ELE DEVE TRANSFORMAR DE JAVA -> SQL DE ACORDO COM A ORDEM DO INDEX
-            stmt.setString(1, account.getCpf());
-            stmt.setString(2, account.getNome());
-            stmt.setFloat(3, account.getValor_compra());
-            stmt.setString(4, account.getForma_pag());
-            stmt.setString(5, account.getStatus());
-            stmt.setString(6, account.getTelefone_cliente());
-            stmt.setTimestamp(7, Timestamp.valueOf(account.getDataCompra()));
+        try (Connection conn = BancoConnection.getConnection()) {
 
+            conn.setAutoCommit(false);
 
-            int rowsAtualizados = stmt.executeUpdate();
-            if (rowsAtualizados > 0){
-                System.out.println("Cadastro concluído com sucesso!");
+            try (
+                    PreparedStatement stmtCliente = conn.prepareStatement(sqlCliente, Statement.RETURN_GENERATED_KEYS);
+            ) {
+
+                stmtCliente.setString(1, account.getCpf());
+                stmtCliente.setString(2, account.getNome());
+                stmtCliente.setFloat(3, account.getValor_compra());
+                stmtCliente.setString(4, account.getForma_pag());
+                stmtCliente.setString(5, account.getStatus());
+                stmtCliente.setString(6, account.getTelefone_cliente());
+
+                stmtCliente.executeUpdate();
+
+                ResultSet generatedKeys = stmtCliente.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int idGerado = generatedKeys.getInt(1);
+                    account.setIdClient(idGerado);
+                } else {
+                    throw new SQLException("Falha ao obter ID do cliente.");
+                }
+
+                try (PreparedStatement stmtClienteProduto = conn.prepareStatement(sqlClienteProduto)) {
+
+                    for (Produtos produto : account.getProdutos()) {
+
+                        stmtClienteProduto.setInt(1, account.getIdClient());
+                        stmtClienteProduto.setInt(2, produto.getId_produto());
+                        stmtClienteProduto.setInt(3, produto.getQuantidade());
+
+                        stmtClienteProduto.executeUpdate();
+                    }
+                }
+                conn.commit();
+                System.out.println("Cliente cadastrado com Sucesso!");
+
+            } catch (SQLException e) {
+
+                conn.rollback();
+                System.err.println("Erro ao criar cliente: " + e.getMessage());
             }
-            else{
-                System.out.println("Erro ao cadastrar.");
-            }
-
         }
-        catch (SQLException e){
-            System.err.println("Erro ao criar conta:" + e.getMessage());
-        }
-
     }
+
 }
+

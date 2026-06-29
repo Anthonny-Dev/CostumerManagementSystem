@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import io.github.cdimascio.dotenv.Dotenv;
 
-
 public class BancoConnection {
     private static final Dotenv dotenv = Dotenv.load();
 
@@ -87,5 +86,4 @@ public class BancoConnection {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
-
 }

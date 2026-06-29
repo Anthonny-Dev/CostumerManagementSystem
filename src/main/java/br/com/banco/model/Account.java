@@ -1,12 +1,13 @@
 package br.com.banco.model;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 
-// creating the class Account
 public class Account {
-    private int id_cliente;
+    private int idClient;
     private String cpf;
     private String nome;
     private float valor_compra;
@@ -15,12 +16,11 @@ public class Account {
     private String telefone_cliente;
     private LocalDateTime dataCompra;
 
-
     private ArrayList<Produtos> produtos;
 
 
-    public Account(int id_cliente, String cpf, String nome, float valor_compra, String forma_pag, String status, String telefone_cliente, LocalDateTime dataCompra) {
-        this.id_cliente = id_cliente;
+    public Account(int idClient, String cpf, String nome, float valor_compra, String forma_pag, String status, String telefone_cliente, LocalDateTime dataCompra) {
+        this.idClient = idClient;
         this.cpf = cpf;
         this.nome = nome;
         this.valor_compra = valor_compra;
@@ -28,17 +28,38 @@ public class Account {
         this.status = status;
         this.telefone_cliente = telefone_cliente;
         this.dataCompra = dataCompra;
+        this.produtos = new ArrayList<>();
 
     }
 
+    public Account( String cpf, String nome, Float valorCompra, String formaPag, String status, String telefoneCliente, LocalDateTime dataCompra) {
+        //this.idClient = idClient;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.valor_compra = valorCompra;
+        this.forma_pag = formaPag;
+        this.status = status;
+        this.telefone_cliente = telefoneCliente;
+        this.dataCompra = dataCompra;
+        this.produtos = new ArrayList<>();
+    }
+
+    public Account() {
+
+    }
 
     // CRIAMOS OS GETTER E SETTERS DA CLASSE
-    public int getId_cliente() {
-        return id_cliente;
+
+    public void adicionarProdutos(Produtos produto){
+        this.produtos.add(produto);
     }
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
     public String getCpf() {
@@ -97,4 +118,9 @@ public class Account {
     public void setDataCompra(LocalDateTime dataCompra) {
         this.dataCompra = dataCompra;
     }
+
+    public List<Produtos> getProdutos() {
+        return produtos;
+    }
+
 }
